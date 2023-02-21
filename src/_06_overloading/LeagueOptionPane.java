@@ -1,5 +1,5 @@
 package _06_overloading;
-
+import java.awt.Color;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -7,7 +7,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 /*
  * Overloading is when we have multiple methods with the SAME name, but DIFFERENT parameters.
  * This can mean a different number of parameters, or the parameter types can differ, or both!
@@ -16,30 +15,66 @@ import javax.swing.JPanel;
  * GOAL: Create your own custom pop-up messages
  */
 public class LeagueOptionPane {
-	
 	public static void showMessageDialog(String message) {
 		// 1. Open example.png and make a GUI that looks like that
 		//    The message parameter is what we want to show on our pop-up
-		
+		JFrame frame = new JFrame();
+		JPanel panel = new JPanel();
+		JLabel label = new JLabel();
+		JLabel textLabel = new JLabel();
+		frame.add(panel);
+		panel.add(textLabel);
+		panel.add(label);
+		frame.setTitle("message");
+		label.setIcon(loadImage("league.png"));
+		textLabel.setText(message);
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.pack();
 		
 		// 2. Uncomment the line of code below. It sets the location of our frame to the center of the screen
-		//frame.setLocationRelativeTo(null);
+		frame.setLocationRelativeTo(null);
 	}
-	
 	// 3. Call this method in the Runner class
-	
-
 	// 4. Create another showMessageDialog() method that lets us also choose the Message and Title 
 	//    2 String parameters (one for the message and one for the title)
-	
+	public static void showMessageDialog(String message, String title) {
+		JFrame frame = new JFrame();
+		JPanel panel = new JPanel();
+		JLabel label = new JLabel();
+		JLabel textLabel = new JLabel();
+		frame.add(panel);
+		panel.add(textLabel);
+		panel.add(label);
+		frame.setTitle(title);
+		textLabel.setText(message);
+		label.setIcon(loadImage("league.png"));
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.pack();
+		frame.setLocationRelativeTo(null);
+	}
 	// 5. Call this method in the Runner class
-	
-	
 	// 6. Create another showMessageDialog() method that lets us choose the Message, Title, and Image
 	//    3 String parameters (one for the message, one for the title, and one for the fileName)
-	
+	public static JPanel showMessageDialog(String message, String title, String fileName) {
+		JFrame frame = new JFrame();
+		JPanel panel = new JPanel();
+		JLabel label = new JLabel();
+		JLabel textLabel = new JLabel();
+		frame.add(panel);
+		panel.add(textLabel);
+		panel.add(label);
+		frame.setTitle(title);
+		textLabel.setText(message);
+		label.setIcon(loadImage(fileName));
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.pack();
+		frame.setLocationRelativeTo(null);
+		return panel;
+	}
 	// 7. Call this method in the Runner class
-	
 	// CHALLENGE: 
 		//	1. Create another showMessageDialog() method that lets us choose the Message, Title, Image, and Background Color
 		//     3 String parameters (one for the message, one for the title, and one for the fileName)
@@ -56,8 +91,23 @@ public class LeagueOptionPane {
 		//	5. Call this method in the Runner class
 		//
 		// WHY DID WE DO THIS? - because we were able to overload this method by calling one of the other methods inside of it
-	
-	
+	public static void showMessageDialog(String message, String title, String fileName, Color backgroundColor) {
+		JFrame frame = new JFrame();
+		JPanel panel = new JPanel();
+		JLabel label = new JLabel();
+		JLabel textLabel = new JLabel();
+		frame.add(panel);
+		panel.add(textLabel);
+		panel.add(label);
+		frame.setTitle(title);
+		textLabel.setText(message);
+		label.setIcon(loadImage(fileName));
+		panel.setBackground(backgroundColor);
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.pack();
+		frame.setLocationRelativeTo(null);
+	}
 	public static ImageIcon loadImage(String fileName) {
 		try {
 			return new ImageIcon(ImageIO.read(new LeagueOptionPane().getClass().getResourceAsStream(fileName)));
@@ -66,5 +116,4 @@ public class LeagueOptionPane {
 			return null;
 		}
 	}
-	
 }
