@@ -1,18 +1,13 @@
 package _08_LeagueSnake;
-
 import java.util.ArrayList;
-
 import processing.core.PApplet;
-
 public class LeagueSnake extends PApplet {
     static final int WIDTH = 800;
     static final int HEIGHT = 800;
     
-    /*
-     * Game variables
-     * 
-     * Put all the game variables here.
-     */
+     /* Game variables
+     * Put all the game variables here.*/
+    
     Segment Segment;
     int foodX;
     int foodY;
@@ -20,35 +15,28 @@ public class LeagueSnake extends PApplet {
     int numFoodEaten = 0;
     ArrayList<Segment> segments = new ArrayList<Segment>();
     
-    /*
-     * Setup methods
-     * 
-     * These methods are called at the start of the game.
-     */
+     /* Setup methods
+     * These methods are called at the start of the game. */
+    
     @Override
     public void settings() {
         size(500, 500);
     }
-
     @Override
     public void setup() {
-        Segment = new Segment(245, 245);
+        Segment = new Segment(250, 250);
         frameRate(20);
         dropFood();
     }
-
     void dropFood() {
         // Set the food in a new random location
     	foodX = ((int)random(50)*10);
     	foodY = ((int)random(50)*10);
     }
-
-    /*
-     * Draw Methods
-     * 
-     * These methods are used to draw the snake and its food
-     */
-
+    
+     /* Draw Methods
+     * These methods are used to draw the snake and its food*/
+    
     @Override
     public void draw() {
         background(0, 0, 0);
@@ -60,32 +48,24 @@ public class LeagueSnake extends PApplet {
 
     void drawFood() {
         // Draw the food
-    	
     	fill(255, 200, 0);
         rect(foodX, foodY, 10, 10);
     }
-
     void drawSnake() {
         // Draw the head of the snake followed by its tail
     	fill(0, 255, 255);
     	rect(Segment.x, Segment.y, 10, 10);
     	manageTail();
     }
-
     void drawTail() {
         // Draw each segment of the tail
         for (int i = 0; i < segments.size(); i++) {
         	Segment eachSegment = segments.get(i);
         	rect(eachSegment.x, eachSegment.y, 10, 10);
-        	
         }
     }
-
-    /*
-     * Tail Management methods
-     * 
-     * These methods make sure the tail is the correct length.
-     */
+     /* Tail Management methods
+     * These methods make sure the tail is the correct length.*/
 
     void manageTail() {
         // After drawing the tail, add a new segment at the "start" of the tail and
@@ -97,25 +77,20 @@ public class LeagueSnake extends PApplet {
 		segments.add(newSegment);
         segments.remove(0);
     }
-
     void checkTailCollision() {
         // If the snake crosses its own tail, shrink the tail back to one segment
         for (Segment eachSegment : segments) {
-        	if (Segment.x == eachSegment.x && Segment.y == eachSegment.x) {
+        	if (Segment.x == eachSegment.x && Segment.y == eachSegment.y) {
         		segments = new ArrayList<>();
         		numFoodEaten = 0;
         		Segment newSegment = new Segment(Segment.x, Segment.y);
         		segments.add(newSegment);
         	}
         }
-        
     }
-
-    /*
-     * Control methods
-     * 
-     * These methods are used to change what is happening to the snake
-     */
+    
+     /* Control methods
+     * These methods are used to change what is happening to the snake */
 
     @Override
     public void keyPressed() {
@@ -133,7 +108,6 @@ public class LeagueSnake extends PApplet {
         	direction = RIGHT;
         }
     }
-
     void move() {
         // Change the location of the Snake head based on the direction it is moving.
         if (direction == UP) {
@@ -149,7 +123,6 @@ public class LeagueSnake extends PApplet {
         }
         checkBoundaries();
     }
-
     void checkBoundaries() {
         // If the snake leaves the frame, make it reappear on the other side
         if (Segment.x > 490) {
@@ -165,7 +138,6 @@ public class LeagueSnake extends PApplet {
         	Segment.y = 490;
         }
     }
-
     void eat() {
         // When the snake eats the food, its tail should grow and more
         // food appear
@@ -175,10 +147,8 @@ public class LeagueSnake extends PApplet {
         	foodY = ((int)random(50)*10);
         	Segment newSegment = new Segment(Segment.x, Segment.y);
         	segments.add(newSegment);
-        	System.out.println(Segment.x);
         }
     }
-
     static public void main(String[] passedArgs) {
         PApplet.main(LeagueSnake.class.getName());
     }
